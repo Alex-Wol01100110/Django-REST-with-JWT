@@ -40,31 +40,3 @@ class CustomSimpleJWTMiddleware():
         except Exception as e:
             pass
 
-
-
-"""
-class AuthenticationMiddlewareJWT(object):
-    def __init__(self, get_response):
-        self.get_response = get_response
-
-    def __call__(self, request):
-        request.user = SimpleLazyObject(lambda: self.__class__.get_jwt_user(request))
-        print(f'user! = {request.user}')
-        return self.get_response(request)
-
-    @staticmethod
-    def get_jwt_user(request):
-        user = get_user(request)
-        if user.is_authenticated:
-            return user
-        try:
-            #request.user = authentication.JWTAuthentication().
-            #                                        authenticate(request)[0]
-            user_jwt = authentication.JWTAuthentication()().authenticate(request)[0]
-            #if user_jwt is not None:
-            #    return user_jwt[0]
-        except Exception as e:
-            print(f'Exception = {e}')
-        return user # AnonymousUser
-
-"""

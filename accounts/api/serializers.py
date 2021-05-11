@@ -20,38 +20,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-"""
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-
-    @classmethod
-    def get_token(cls, user):
-        # token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        token = super().get_token(user)
-
-        token['username'] = user.username
-
-        return token
-
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['first_name'] = user.first_name
-        token['last_name'] = user.last_name
-        token['username'] = user.username
-        token['is_superuser'] = user.is_superuser
-        print(f'!user = {user}')
-        return token
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-        token['email'] = user.email
-        print(f'!user = {user}')
-        return token
-"""
-
-
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
             required=True,
@@ -94,7 +62,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
-
 
 
 def _change_user_last_login_time(user):

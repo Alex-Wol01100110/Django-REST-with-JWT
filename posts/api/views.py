@@ -19,27 +19,12 @@ class PostCreateView(generics.CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PostCreateSerializer
 
-"""
-class PostLikeView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = (IsAuthenticated,)
-    def post(self, request, pk, format=None):
-        post = get_object_or_404(Post, pk=pk)
-        if request.user in post.users_like.all(): 
-            return Response({'liked': False})
-        else:    
-            post.users_like.add(request.user)
-            post.total_likes += 1
-            post.save()
-            return Response({'liked': True})
-"""
 
 class PostLikeView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, pk, format=None):
-        print(f'req user!!! = {request.user}') 
         post = get_object_or_404(Post, id=pk)
         if post.likes.all().filter(user=request.user).exists():
             return Response({'liked': False})
@@ -56,23 +41,15 @@ class PostUnlikeView(APIView):
         post = get_object_or_404(Post, id=pk)
         if post.likes.all().filter(user=request.user).exists():
             like = Like.objects.all().filter(post=post, user=request.user)
-            print(f'like = {like}')
             like.delete()
             return Response({'unliked': True})
         else:
             return Response({'unliked': False})
 
 
-
 class TotalLikesByDatesView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
-
-    """
-    def get(self, request, format=None,
-            year_from, month_from, day_from
-            year_to, month_to, day_to):
-    """
 
     def get(self, request, date_from, date_to, format=None):
         """Return list of all likes in certain time gap."""
@@ -85,34 +62,3 @@ class TotalLikesByDatesView(APIView):
 
 
 
-"""
-class PostUnlikeView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = (IsAuthenticated,)
-    def post(self, request, pk, format=None):
-        post = get_object_or_404(Post, pk=pk)
-        if request.user in post.users_like.all():     
-            post.users_like.remove(request.user)
-            post.total_likes -= 1
-            post.save()
-            return Response({'unliked': True})
-        else:
-            return Response({'unliked': False})
-
-class PostLikeUnlikeView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = (IsAuthenticated,)
-
-    def post(self, request, pk, format=None):
-        post = get_object_or_404(Post, pk=pk)
-        if request.user in post.users_like.all(): 
-            post.users_like.remove(request.user)
-            post.total_likes -= 1
-            post.save()
-            return Response({'unliked': True})
-        else:    
-            post.users_like.add(request.user)
-            post.total_likes += 1
-            post.save()
-            return Response({'liked': True})
-"""

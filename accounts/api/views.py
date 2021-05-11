@@ -31,10 +31,8 @@ class UserLastLoginAndLastRequestView(APIView):
         User = get_user_model()
         current_user = User.objects.get(id=request.user.id)
         last_login = current_user.last_login 
-        print(f'last login = {last_login}')
         
         last_activity = current_user.profile.last_activity
-        print(f'last_act = {last_activity}')
 
         return Response(last_login)
         
