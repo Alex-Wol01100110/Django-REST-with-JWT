@@ -34,5 +34,5 @@ class UserLastLoginAndLastRequestView(APIView):
         
         last_activity = current_user.profile.last_activity
 
-        return Response(last_login)
+        return Response(f'last login {last_login} last request {last_activity}')
         
