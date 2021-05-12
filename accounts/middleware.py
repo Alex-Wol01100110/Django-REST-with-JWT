@@ -1,8 +1,5 @@
-from django.contrib.auth.middleware import get_user
-from django.utils.functional import SimpleLazyObject
 from django.utils import timezone
 
-from rest_framework.request import Request
 from rest_framework_simplejwt import authentication
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -10,6 +7,9 @@ from .models import Profile
 
 
 class UpdateLastActivityMiddleware(object):
+    """
+        Update user activity, if user is authenticated.
+    """
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -26,6 +26,10 @@ class UpdateLastActivityMiddleware(object):
 
 
 class CustomSimpleJWTMiddleware():
+    """
+        Authenticate user by token.
+    """
+
     def __init__(self, get_response):
         self.get_response = get_response
 
