@@ -13,12 +13,21 @@ from ..models import Post, Like
 
 
 class PostCreateView(generics.CreateAPIView):
+    """
+        Create post is user is authenticated.
+    """
+
     queryset = Post.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = PostCreateSerializer
 
 
 class PostLikeView(APIView):
+    """
+        Like Post if user haven't liked post before
+        and return appropriate response.
+    """
+
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
 
@@ -32,6 +41,10 @@ class PostLikeView(APIView):
 
 
 class PostUnlikeView(APIView):
+    """
+        Unlike Post if user liked post before
+        and return appropriate response.
+    """
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
 
@@ -46,6 +59,10 @@ class PostUnlikeView(APIView):
 
 
 class TotalLikesByDatesView(APIView):
+    """
+        Return total likes in ceratin time range.
+    """
+
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
 

@@ -4,6 +4,10 @@ from ..models import Post
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
+    """
+        Create post and set request user as post author.
+    """
+
     title = serializers.CharField(write_only=True, required=True)
     body = serializers.CharField(write_only=True, required=True)
 

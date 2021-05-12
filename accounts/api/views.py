@@ -12,11 +12,18 @@ from .serializers import MyTokenObtainPairSerializer, RegisterSerializer
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
+    """
+       Authenticate user and set last login time. 
+    """
     permission_class = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
 
 class RegisterView(generics.CreateAPIView):
+    """
+        Register user.
+    """
+
     User = get_user_model()
     query = User.objects.all()
     permission_classes = (AllowAny,)
@@ -24,6 +31,11 @@ class RegisterView(generics.CreateAPIView):
 
 
 class UserLastLoginAndLastRequestView(APIView):
+    """
+        Return user's last login time and
+        last activity time.
+    """
+
     authentication_classes = [JWTAuthentication]
     permission_classes = (IsAuthenticated,)
 

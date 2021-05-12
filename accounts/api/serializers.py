@@ -9,6 +9,10 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+        Obtain and store username in token.
+        Change user last login time to current time.
+    """
 
     @classmethod
     def get_token(cls, user):
@@ -22,6 +26,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+        Create user and validate password.
+    """
+
     email = serializers.EmailField(
             required=True,
             validators=[UniqueValidator(queryset=User.objects.all())]
@@ -66,6 +74,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 def _change_user_last_login_time(user):
+    """
+        Change user's last login time.
+    """
     time_z = timezone.now()
     user.last_login = time_z
     user.save()
