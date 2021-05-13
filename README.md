@@ -104,3 +104,5 @@ refactor code.
 post like and unlike can be one function.
 
 place inner function from serealizer in services for example. 
+
+right way would be to add Many-To-Many relationship to Post model.
